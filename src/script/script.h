@@ -17,6 +17,7 @@
 #include <string.h>
 #include <string>
 #include <vector>
+#include "crypto/common.h"
 
 // Maximum number of bytes pushable to the stack
 static const unsigned int MAX_SCRIPT_ELEMENT_SIZE = 520;
