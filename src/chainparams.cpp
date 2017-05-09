@@ -86,6 +86,32 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
+
+void CChainParams::UpdateBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout, int64_t nWindowSize, int64_t nThreshold)
+{
+    consensus.vDeployments[d].nStartTime = nStartTime;
+    consensus.vDeployments[d].nTimeout = nTimeout;
+    if (nWindowSize != -1) {
+            consensus.vDeployments[d].nWindowSize = nWindowSize;
+    }
+    if (nThreshold != -1) {
+            consensus.vDeployments[d].nThreshold = nThreshold;
+    }
+}
+
+void CChainParams::UpdateAIP3Parameters(int nActivationHeight, int nEnforcementHeight)
+{
+    consensus.AIP0003Height = nActivationHeight;
+    consensus.AIP0003EnforcementHeight = nEnforcementHeight;
+}
+
+void CChainParams::UpdateBudgetParameters(int nMasternodePaymentsStartBlock, int nBudgetPaymentsStartBlock, int nSuperblockStartBlock)
+{
+    consensus.nMasternodePaymentsStartBlock = nMasternodePaymentsStartBlock;
+    consensus.nBudgetPaymentsStartBlock = nBudgetPaymentsStartBlock;
+    consensus.nSuperblockStartBlock = nSuperblockStartBlock;
+}
+
 static CBlock FindPoVNETGenesisBlock(const Consensus::Params& params, const CBlock &prevBlock, const CAmount& reward)
 {
     std::string PoVNETName = GetPoVNETName();
@@ -273,7 +299,6 @@ public:
         };
     }
 };
-static CMainParams mainParams;
 
 /**
  * Testnet (v4)
@@ -418,7 +443,6 @@ public:
 
     }
 };
-static CTestNetParams testNetParams;
 
 /**
  * PoVNET
@@ -682,34 +706,32 @@ public:
         nExtCoinType = 1;
    }
 
-    void UpdateBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout)
-    {
-        consensus.vDeployments[d].nStartTime = nStartTime;
-        consensus.vDeployments[d].nTimeout = nTimeout;
+        // long living quorum params
+        consensus.llmqs[Consensus::LLMQ_5_60] = llmq5_60;
+        consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
+        consensus.llmqChainLocks = Consensus::LLMQ_5_60;
+        consensus.llmqForInstantSend = Consensus::LLMQ_5_60;
     }
 };
-static CRegTestParams regTestParams;
 
-static CChainParams *pCurrentParams = 0;
+static std::unique_ptr<CChainParams> globalChainParams;
 
 const CChainParams &Params() {
-    assert(pCurrentParams);
-    return *pCurrentParams;
+    assert(globalChainParams);
+    return *globalChainParams;
 }
 
-CChainParams& Params(const std::string& chain)
+std::unique_ptr<CChainParams> CreateChainParams(const std::string& chain)
 {
     if (chain == CBaseChainParams::MAIN)
-            return mainParams;
+        return std::unique_ptr<CChainParams>(new CMainParams());
     else if (chain == CBaseChainParams::TESTNET)
-            return testNetParams;
+        return std::unique_ptr<CChainParams>(new CTestNetParams());
     else if (chain == CBaseChainParams::POVNET) {
-            assert(PoVNETParams);
-            return *PoVNETParams;
+        return std::unique_ptr<CChainParams>(new CDevNetParams());
     } else if (chain == CBaseChainParams::REGTEST)
-            return regTestParams;
-    else
-        throw std::runtime_error(strprintf("%s: Unknown chain %s.", __func__, chain));
+        return std::unique_ptr<CChainParams>(new CRegTestParams());
+    throw std::runtime_error(strprintf("%s: Unknown chain %s.", __func__, chain));
 }
 
 void SelectParams(const std::string& network)
@@ -718,10 +740,31 @@ void SelectParams(const std::string& network)
         PoVNETParams = new CPoVNETParams();
     }
     SelectBaseParams(network);
-    pCurrentParams = &Params(network);
+    globalChainParams = CreateChainParams(network);
 }
 
-void UpdateRegtestBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout)
+void UpdateBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout, int64_t nWindowSize, int64_t nThreshold)
+{
+    globalChainParams->UpdateBIP9Parameters(d, nStartTime, nTimeout, nWindowSize, nThreshold);
+}
+
+void UpdateAIP3Parameters(int nActivationHeight, int nEnforcementHeight)
+{
+    globalChainParams->UpdateAIP3Parameters(nActivationHeight, nEnforcementHeight);
+}
+
+void UpdateBudgetParameters(int nMasternodePaymentsStartBlock, int nBudgetPaymentsStartBlock, int nSuperblockStartBlock)
+{
+    globalChainParams->UpdateBudgetParameters(nMasternodePaymentsStartBlock, nBudgetPaymentsStartBlock, nSuperblockStartBlock);
+}
+
+void UpdateDevnetSubsidyAndDiffParams(int nMinimumDifficultyBlocks, int nHighSubsidyBlocks, int nHighSubsidyFactor)
+{
+    assert(devNetParams);
+    devNetParams->UpdateSubsidyAndDiffParams(nMinimumDifficultyBlocks, nHighSubsidyBlocks, nHighSubsidyFactor);
+}
+
+void UpdateDevnetLLMQChainLocks(Consensus::LLMQType llmqType)
 {
     regTestParams.UpdateBIP9Parameters(d, nStartTime, nTimeout);
 }
