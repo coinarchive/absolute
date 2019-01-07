@@ -273,7 +273,8 @@ public:
         fAllowMultipleAddressesFromGroup = false;
         fAllowMultiplePorts = false;
 
-        nPoolMaxTransactions = 3;
+        nPoolMinParticipants = 3;
+        nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
 
         vSporkAddresses = {"AYZX23zmfNQgCZtzq7JsWHRKKyuzzxYHfD"};
@@ -423,7 +424,8 @@ public:
         fAllowMultipleAddressesFromGroup = false;
         fAllowMultiplePorts = false;
 
-        nPoolMaxTransactions = 3;
+        nPoolMinParticipants = 3;
+        nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
         vSporkAddresses = {"yQzniXSTqRwaEujSkvZicJsYZkt7wpa4NJ"};
@@ -563,7 +565,8 @@ public:
         fAllowMultipleAddressesFromGroup = true;
         fAllowMultiplePorts = true;
 
-        nPoolMaxTransactions = 3;
+        nPoolMinParticipants = 3;
+        nPoolMaxParticipants = 5;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
         vSporkAddresses = {"yQzniXSTqRwaEujSkvZicJsYZkt7wpa4NJ"};

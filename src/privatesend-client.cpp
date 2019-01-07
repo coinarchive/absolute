@@ -324,18 +324,34 @@ std::string CPrivateSendClientSession::GetStatus(bool fWaitForBlock)
                 else if(nStatusMessageProgress % 70 <= 70) strSuffix = "...";
                 return strprintf(_("Submitted to masternode, waiting for more entries ( %u / %d ) %s"), nEntriesCount, CPrivateSend::GetMaxPoolTransactions(), strSuffix);
             }
-        case POOL_STATE_SIGNING:
-            if(     nStatusMessageProgress % 70 <= 40) return _("Found enough users, signing ...");
-            else if(nStatusMessageProgress % 70 <= 50) strSuffix = ".";
-            else if(nStatusMessageProgress % 70 <= 60) strSuffix = "..";
-            else if(nStatusMessageProgress % 70 <= 70) strSuffix = "...";
-            return strprintf(_("Found enough users, signing ( waiting %s )"), strSuffix);
-        case POOL_STATE_ERROR:
-            return _("PrivateSend request incomplete:") + " " + strLastMessage + " " + _("Will retry...");
-        case POOL_STATE_SUCCESS:
-            return _("PrivateSend request complete:") + " " + strLastMessage;
-       default:
-            return strprintf(_("Unknown state: id = %u"), nState);
+            return _("PrivateSend request complete:") + " " + _("Your transaction was accepted into the pool!");
+        } else {
+            if (nStatusMessageProgress % 70 <= 40)
+                return strprintf(_("Submitted following entries to masternode: %u"), nEntriesCount);
+            else if (nStatusMessageProgress % 70 <= 50)
+                strSuffix = ".";
+            else if (nStatusMessageProgress % 70 <= 60)
+                strSuffix = "..";
+            else if (nStatusMessageProgress % 70 <= 70)
+                strSuffix = "...";
+            return strprintf(_("Submitted to masternode, waiting for more entries ( %u ) %s"), nEntriesCount, strSuffix);
+        }
+    case POOL_STATE_SIGNING:
+        if (nStatusMessageProgress % 70 <= 40)
+            return _("Found enough users, signing ...");
+        else if (nStatusMessageProgress % 70 <= 50)
+            strSuffix = ".";
+        else if (nStatusMessageProgress % 70 <= 60)
+            strSuffix = "..";
+        else if (nStatusMessageProgress % 70 <= 70)
+            strSuffix = "...";
+        return strprintf(_("Found enough users, signing ( waiting %s )"), strSuffix);
+    case POOL_STATE_ERROR:
+        return _("PrivateSend request incomplete:") + " " + strLastMessage + " " + _("Will retry...");
+    case POOL_STATE_SUCCESS:
+        return _("PrivateSend request complete:") + " " + strLastMessage;
+    default:
+        return strprintf(_("Unknown state: id = %u"), nState);
     }
 }
 

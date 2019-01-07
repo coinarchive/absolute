@@ -120,7 +120,8 @@ protected:
     bool fAllowMultiplePorts;
     CCheckpointData checkpointData;
     ChainTxData chainTxData;
-    int nPoolMaxTransactions;
+    int nPoolMinParticipants;
+    int nPoolMaxParticipants;
     int nFulfilledRequestExpireTime;
     std::vector<std::string> vSporkAddresses;
     int nMinSporkKeys;

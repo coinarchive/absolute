@@ -267,6 +267,7 @@ void CPrivateSendServer::SetNull()
 {
     // MN side
     vecSessionCollaterals.clear();
+    nSessionMaxParticipants = NULL;
 
     CPrivateSendBaseSession::SetNull();
     CPrivateSendBaseManager::SetNull();
@@ -282,7 +283,7 @@ void CPrivateSendServer::CheckPool(CConnman& connman)
     LogPrint("privatesend", "CPrivateSendServer::CheckPool -- entries count %lu\n", GetEntriesCount());
 
     // If entries are full, create finalized transaction
-    if (nState == POOL_STATE_ACCEPTING_ENTRIES && GetEntriesCount() >= CPrivateSend::GetMaxPoolTransactions()) {
+    if (nState == POOL_STATE_ACCEPTING_ENTRIES && GetEntriesCount() >= nSessionMaxParticipants) {
         LogPrint("privatesend", "CPrivateSendServer::CheckPool -- FINALIZE TRANSACTIONS\n");
         CreateFinalTransaction(connman);
         return;
@@ -423,10 +424,10 @@ void CPrivateSendServer::ChargeFees(CConnman& connman)
     if(vecOffendersCollaterals.empty()) return;
 
     //mostly offending? Charge sometimes
-    if((int)vecOffendersCollaterals.size() >= Params().PoolMaxTransactions() - 1 && GetRandInt(100) > 33) return;
+    if ((int)vecOffendersCollaterals.size() >= nSessionMaxParticipants - 1 && GetRandInt(100) > 33) return;
 
     //everyone is an offender? That's not right
-    if((int)vecOffendersCollaterals.size() >= Params().PoolMaxTransactions()) return;
+    if ((int)vecOffendersCollaterals.size() >= nSessionMaxParticipants) return;
 
     //charge one of the offenders randomly
     std::random_shuffle(vecOffendersCollaterals.begin(), vecOffendersCollaterals.end());
@@ -582,7 +583,7 @@ bool CPrivateSendServer::AddEntry(const CDarkSendEntry& entryNew, PoolMessage& n
         return false;
     }
 
-    if(GetEntriesCount() >= CPrivateSend::GetMaxPoolTransactions()) {
+    if (GetEntriesCount() >= nSessionMaxParticipants) {
         LogPrint("privatesend", "CPrivateSendServer::AddEntry -- entries is full!\n");
         nMessageIDRet = ERR_ENTRIES_FULL;
         return false;
@@ -711,6 +712,7 @@ bool CPrivateSendServer::CreateNewSession(const CDarksendAccept& dsa, PoolMessag
     nMessageIDRet = MSG_NOERR;
     nSessionID = GetRandInt(999999)+1;
     nSessionDenom = dsa.nDenom;
+    nSessionMaxParticipants = CPrivateSend::GetMinPoolParticipants() + GetRandInt(CPrivateSend::GetMaxPoolParticipants() - CPrivateSend::GetMinPoolParticipants() + 1);
 
     SetState(POOL_STATE_QUEUE);
     nTimeLastSuccessfulStep = GetTime();
