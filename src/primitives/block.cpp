@@ -13,9 +13,9 @@
 uint256 CBlockHeader::GetHash() const
 {
     uint256 targetHash;
-    if(Params().NetworkIDString() == CBaseChainParams::TESTNET && nHeight > 25) 
+    if(Params().NetworkIDString() == CBaseChainParams::TESTNET) 
     {
-        lyra2re3_hash(BEGIN(nVersion), BEGIN(thash));
+        lyra2re3_hash(BEGIN(nVersion), BEGIN(targetHash));
     }
     else
     {
