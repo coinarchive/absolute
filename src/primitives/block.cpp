@@ -11,7 +11,7 @@
 #include "crypto/common.h"
 #include "chainparams.h"
 
-uint256 CBlockHeader::GetHash(const int nHeight) const
+uint256 CBlockHeader::GetHash() const
 {
     uint256 targetHash;
     if(Params().NetworkIDString() == CBaseChainParams::TESTNET && nHeight > 25) 
