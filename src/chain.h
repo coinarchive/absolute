@@ -409,7 +409,7 @@ public:
         block.nTime           = nTime;
         block.nBits           = nBits;
         block.nNonce          = nNonce;
-        return block.GetHash(nHeight);
+        return block.GetHash();
     }
 
 
