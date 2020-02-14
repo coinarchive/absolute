@@ -13,6 +13,11 @@
 
 uint256 CBlockHeader::GetHash() const
 {
+    return SerializeHash(*this);
+}
+
+uint256 CBlockHeader::GetPoWHash(const int nHeight) const
+{
     uint256 targetHash;
     if(Params().NetworkIDString() == CBaseChainParams::TESTNET && nHeight > 25) 
     {
