@@ -166,7 +166,7 @@
 - [`228d774a6`](https://github.com/dashpay/dash/commit/228d774a6) Fix use of distdir and docker build dir
 - [`771c56a79`](https://github.com/dashpay/dash/commit/771c56a79) Fix new bitcoin-util-tests
 - [`9e13bb393`](https://github.com/dashpay/dash/commit/9e13bb393) Fix transaction_tests.cpp
-- [`cd0c910a8`](https://github.com/dashpay/dash/commit/cd0c910a8) Use new data structures for devnet checkpointData/chainTxData
+- [`cd0c910a8`](https://github.com/dashpay/dash/commit/cd0c910a8) Use new data structures for povnet checkpointData/chainTxData
 - [`2cdafa0ca`](https://github.com/dashpay/dash/commit/2cdafa0ca) Merge #9671: Fix super-unlikely race introduced in 236618061a445d2cb11e72
 - [`4f6de1697`](https://github.com/dashpay/dash/commit/4f6de1697) Merge #9525: test: Include tx data in EXTRA_DIST
 - [`dd5ccf1cb`](https://github.com/dashpay/dash/commit/dd5ccf1cb) Merge #9406: Re-enable a blank v1 Tx JSON test
@@ -212,7 +212,7 @@
 - [`819ea7484`](https://github.com/dashpay/dash/commit/819ea7484) Merge #9507: Fix use-after-free in CTxMemPool::removeConflicts()
 - [`88b9aa45d`](https://github.com/dashpay/dash/commit/88b9aa45d) Merge #7871: Manual block file pruning.
 - [`6132bfbe2`](https://github.com/dashpay/dash/commit/6132bfbe2) Use version 2 blocks for miner_tests
-- [`56ff71fce`](https://github.com/dashpay/dash/commit/56ff71fce) Update devnet to activate BIP34/BIP65/BIP66 immediately
+- [`56ff71fce`](https://github.com/dashpay/dash/commit/56ff71fce) Update povnet to activate BIP34/BIP65/BIP66 immediately
 - [`7321bfdd6`](https://github.com/dashpay/dash/commit/7321bfdd6) Merge #8391: Consensus: Remove ISM
 - [`17d375e71`](https://github.com/dashpay/dash/commit/17d375e71) Merge #9436: test: Include tx data in EXTRA_DIST
 - [`b72f9249d`](https://github.com/dashpay/dash/commit/b72f9249d) Merge #9376: Remove unused test files and references
@@ -341,7 +341,7 @@
 - [`d0a39fbcf`](https://github.com/dashpay/dash/commit/d0a39fbcf) Use "Dash Core" instead of "dash-core" in some places and Dashify
 - [`9170c0e9c`](https://github.com/dashpay/dash/commit/9170c0e9c) Fix rpc tests
 - [`76d7730a5`](https://github.com/dashpay/dash/commit/76d7730a5) Dashify ISSUE_TEMPLATE.md
-- [`07cd44c0e`](https://github.com/dashpay/dash/commit/07cd44c0e) Use MakeTransactionRef in CreateDevNetGenesisBlock
+- [`07cd44c0e`](https://github.com/dashpay/dash/commit/07cd44c0e) Use MakeTransactionRef in CreatePoVNetGenesisBlock
 - [`e02f31347`](https://github.com/dashpay/dash/commit/e02f31347) Mogrify and optimize network_disabled.png and copy it to all themes
 - [`796bed124`](https://github.com/dashpay/dash/commit/796bed124) Merge #9207: [Doc] Move comments above bash command in build-unix
 - [`898bd4395`](https://github.com/dashpay/dash/commit/898bd4395) Merge #9204: Clarify CreateTransaction error messages

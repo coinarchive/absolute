@@ -161,13 +161,13 @@ void UpdateAIP3Parameters(int nActivationHeight, int nEnforcementHeight);
 void UpdateBudgetParameters(int nMasternodePaymentsStartBlock, int nBudgetPaymentsStartBlock, int nSuperblockStartBlock);
 
 /**
- * Allows modifying the subsidy and difficulty devnet parameters.
+ * Allows modifying the subsidy and difficulty povnet parameters.
  */
-void UpdateDevnetSubsidyAndDiffParams(int nMinimumDifficultyBlocks, int nHighSubsidyBlocks, int nHighSubsidyFactor);
+void UpdatePovnetSubsidyAndDiffParams(int nMinimumDifficultyBlocks, int nHighSubsidyBlocks, int nHighSubsidyFactor);
 
 /**
  * Allows modifying the LLMQ type for ChainLocks.
  */
-void UpdateDevnetLLMQChainLocks(Consensus::LLMQType llmqType);
+void UpdatePovnetLLMQChainLocks(Consensus::LLMQType llmqType);
 
 #endif // BITCOIN_CHAINPARAMS_H

@@ -43,22 +43,22 @@ fully compatible.
 Notable changes
 ===============
 
-Introducing Named Devnets
+Introducing Named Povnets
 -------------------------
 
-We introduce a new feature called [Named Devnets](https://github.com/dashpay/dash/pull/1791).
-This feature allows the creation of multiple independent devnets. Each one is
-identified by a name which is hardened into a "devnet genesis" block,
+We introduce a new feature called [Named Povnets](https://github.com/dashpay/dash/pull/1791).
+This feature allows the creation of multiple independent povnets. Each one is
+identified by a name which is hardened into a "povnet genesis" block,
 which is automatically positioned at height 1. Validation rules will
-ensure that a node from `devnet=test1` will never be able to accept blocks
-from `devnet=test2`. This is done by checking the expected devnet genesis
+ensure that a node from `povnet=test1` will never be able to accept blocks
+from `povnet=test2`. This is done by checking the expected povnet genesis
 block.
 
-The genesis block of the devnet is the same as the one from regtest. This
-starts the devnet with a very low difficulty, allowing us to fill up
+The genesis block of the povnet is the same as the one from regtest. This
+starts the povnet with a very low difficulty, allowing us to fill up
 needed balances for masternodes very fast.
 
-Also, the devnet name is put into the sub-version of the `VERSION` message.
+Also, the povnet name is put into the sub-version of the `VERSION` message.
 If a node connects to the wrong network, it will immediately be disconnected.
 
 New format of network message signatures
@@ -148,7 +148,7 @@ Command-line options
 --------------------
 
 New cmd-line options:
-- introduced in Dash Core 0.12.3.1: `allowprivatenet`, `bip9params`, `sporkaddr`, `devnet`;
+- introduced in Dash Core 0.12.3.1: `allowprivatenet`, `bip9params`, `sporkaddr`, `povnet`;
 - backported from Bitcoin Core 0.13/0.14: `blockreconstructionextratxn`, `maxtimeadjustment`, `maxtipage`,
 `incrementalrelayfee`, `dustrelayfee`, `blockmintxfee`.
 
@@ -266,7 +266,7 @@ See detailed [change log](https://github.com/dashpay/dash/compare/v0.12.2.3...da
 - [`6bf389afb`](https://github.com/dashpay/dash/commit/6bf389afb) Don't drop mnb-s for outdated MNs (#2131)
 - [`c60079b59`](https://github.com/dashpay/dash/commit/c60079b59) ThreadOpenMasternodeConnections should process only one mn at a time (#2080)
 - [`a648d6eff`](https://github.com/dashpay/dash/commit/a648d6eff) Drop delayed headers logic and fix duplicate initial headers sync by handling block inv correctly (#2032)
-- [`99085c5b6`](https://github.com/dashpay/dash/commit/99085c5b6) swap devnet magic bytes around (#2028)
+- [`99085c5b6`](https://github.com/dashpay/dash/commit/99085c5b6) swap povnet magic bytes around (#2028)
 - [`a37dbd6d2`](https://github.com/dashpay/dash/commit/a37dbd6d2) Fix netfulfilledman usage (#2033)
 - [`08033ffe4`](https://github.com/dashpay/dash/commit/08033ffe4) Reject Dash-specific messages from obsolete peers (#1983)
 - [`43671a39d`](https://github.com/dashpay/dash/commit/43671a39d) Deprecate nMnCount in mnget (#1942)
@@ -285,11 +285,11 @@ See detailed [change log](https://github.com/dashpay/dash/compare/v0.12.2.3...da
 - [`b84afb251`](https://github.com/dashpay/dash/commit/b84afb251) Allow to filter for fully connected nodes when calling CopyNodeVector (#1864)
 - [`532b9fa3d`](https://github.com/dashpay/dash/commit/532b9fa3d) Use OpenNetworkConnection instead of calling ConnectNode directly in Dash code (#1857)
 - [`3aad9d908`](https://github.com/dashpay/dash/commit/3aad9d908) Fix logging in PushInventory (#1847)
-- [`81fb931fb`](https://github.com/dashpay/dash/commit/81fb931fb) Don't delay GETHEADERS when no blocks have arrived yet in devnet (#1807)
+- [`81fb931fb`](https://github.com/dashpay/dash/commit/81fb931fb) Don't delay GETHEADERS when no blocks have arrived yet in povnet (#1807)
 
 ### Mining:
-- [`ff93dd613`](https://github.com/dashpay/dash/commit/ff93dd613) Check devnet genesis block (#2057)
-- [`1dbf5a0f6`](https://github.com/dashpay/dash/commit/1dbf5a0f6) Fix transaction/block versions for devnet genesis blocks (#2056)
+- [`ff93dd613`](https://github.com/dashpay/dash/commit/ff93dd613) Check povnet genesis block (#2057)
+- [`1dbf5a0f6`](https://github.com/dashpay/dash/commit/1dbf5a0f6) Fix transaction/block versions for povnet genesis blocks (#2056)
 - [`880cbf43b`](https://github.com/dashpay/dash/commit/880cbf43b) Backport fPowAllowMinDifficultyBlocks rule to DarkGravityWave (#2027)
 - [`27dfed424`](https://github.com/dashpay/dash/commit/27dfed424) Bump default max block size from 750k to 2MB (#2023)
 - [`79183f630`](https://github.com/dashpay/dash/commit/79183f630) Add tests for GetBlockSubsidy algorithm (#2022)
@@ -404,7 +404,7 @@ See detailed [change log](https://github.com/dashpay/dash/compare/v0.12.2.3...da
 - [`9ef38c6d7`](https://github.com/dashpay/dash/commit/9ef38c6d7) Switch CNetFulfilledRequestManager and CMasternodeMan maps/funcs to CService (#1967)
 - [`929c1584a`](https://github.com/dashpay/dash/commit/929c1584a) Rename CheckPreviousBlockVotes to CheckBlockVotes and adjust its log output a bit (#1965)
 - [`bf0854e58`](https://github.com/dashpay/dash/commit/bf0854e58) Swap `expired` and `sentinel_expired` states in order (#1961)
-- [`9876207ce`](https://github.com/dashpay/dash/commit/9876207ce) Multiple devnet fixes (#1960)
+- [`9876207ce`](https://github.com/dashpay/dash/commit/9876207ce) Multiple povnet fixes (#1960)
 - [`e37b6c7da`](https://github.com/dashpay/dash/commit/e37b6c7da) Fix BIP147 deployment threshold parameter (#1955)
 - [`106276a3e`](https://github.com/dashpay/dash/commit/106276a3e) Adjust/fix log output (#1954)
 - [`0abd1894e`](https://github.com/dashpay/dash/commit/0abd1894e) Call CheckMnbAndUpdateMasternodeList when starting MN (#1945)
@@ -421,7 +421,7 @@ See detailed [change log](https://github.com/dashpay/dash/compare/v0.12.2.3...da
 - [`bb20b4e7b`](https://github.com/dashpay/dash/commit/bb20b4e7b) Few cleanups after backporting (#1903)
 - [`a7fa07a30`](https://github.com/dashpay/dash/commit/a7fa07a30) Drop BOOST_FOREACH and use references in loops (const ref where applicable, Dash code only) (#1899)
 - [`e0b6988a4`](https://github.com/dashpay/dash/commit/e0b6988a4) Various fixes and refactoring for Cache*Map classes (#1896)
-- [`99b2789a7`](https://github.com/dashpay/dash/commit/99b2789a7) Fix DeserializeAndCheckBlockTest benchmark and store hashDevnetGenesisBlock in `consensus` (#1888)
+- [`99b2789a7`](https://github.com/dashpay/dash/commit/99b2789a7) Fix DeserializeAndCheckBlockTest benchmark and store hashPovnetGenesisBlock in `consensus` (#1888)
 - [`88646bd0d`](https://github.com/dashpay/dash/commit/88646bd0d) Rename `fMasterNode` to `fMasternodeMode` to clarify its meaning and to avoid confusion with `CNode::fMasternode` (#1874)
 - [`f6d98422c`](https://github.com/dashpay/dash/commit/f6d98422c) Silence ratecheck_test (#1873)
 - [`9cee4193b`](https://github.com/dashpay/dash/commit/9cee4193b) Separate .h generation from .json/.raw for different modules (#1870)
@@ -432,7 +432,7 @@ See detailed [change log](https://github.com/dashpay/dash/compare/v0.12.2.3...da
 - [`d9058aa04`](https://github.com/dashpay/dash/commit/d9058aa04) Increase travis timeout for "wine src/test/test_absolute.exe" call (#1820)
 - [`10786fe8e`](https://github.com/dashpay/dash/commit/10786fe8e) Use travis_wait for "wine test_absolute.exe" call to fix timeouts (#1812)
 - [`4bce3bf8b`](https://github.com/dashpay/dash/commit/4bce3bf8b) Fix crash on exit when -createwalletbackups=0 (#1810)
-- [`cd9c6994c`](https://github.com/dashpay/dash/commit/cd9c6994c) Implement named devnets (#1791)
+- [`cd9c6994c`](https://github.com/dashpay/dash/commit/cd9c6994c) Implement named povnets (#1791)
 - [`ebbd26a05`](https://github.com/dashpay/dash/commit/ebbd26a05) Drop IsInputAssociatedWithPubkey and optimize CheckOutpoint (#1783)
 
 ### Backports and related fixes:

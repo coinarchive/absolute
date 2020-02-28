@@ -1342,16 +1342,16 @@ bool AppInitParameterInteraction()
         UpdateBudgetParameters(nMasternodePaymentsStartBlock, nBudgetPaymentsStartBlock, nSuperblockStartBlock);
     }
 
-    if (chainparams.NetworkIDString() == CBaseChainParams::DEVNET) {
+    if (chainparams.NetworkIDString() == CBaseChainParams::POVNET) {
         int nMinimumDifficultyBlocks = gArgs.GetArg("-minimumdifficultyblocks", chainparams.GetConsensus().nMinimumDifficultyBlocks);
         int nHighSubsidyBlocks = gArgs.GetArg("-highsubsidyblocks", chainparams.GetConsensus().nHighSubsidyBlocks);
         int nHighSubsidyFactor = gArgs.GetArg("-highsubsidyfactor", chainparams.GetConsensus().nHighSubsidyFactor);
-        UpdateDevnetSubsidyAndDiffParams(nMinimumDifficultyBlocks, nHighSubsidyBlocks, nHighSubsidyFactor);
+        UpdatePovnetSubsidyAndDiffParams(nMinimumDifficultyBlocks, nHighSubsidyBlocks, nHighSubsidyFactor);
     } else if (gArgs.IsArgSet("-minimumdifficultyblocks") || gArgs.IsArgSet("-highsubsidyblocks") || gArgs.IsArgSet("-highsubsidyfactor")) {
-        return InitError("Difficulty and subsidy parameters may only be overridden on devnet.");
+        return InitError("Difficulty and subsidy parameters may only be overridden on povnet.");
     }
 
-    if (chainparams.NetworkIDString() == CBaseChainParams::DEVNET) {
+    if (chainparams.NetworkIDString() == CBaseChainParams::POVNET) {
         std::string llmqChainLocks = gArgs.GetArg("-llmqchainlocks", Params().GetConsensus().llmqs.at(Params().GetConsensus().llmqChainLocks).name);
         Consensus::LLMQType llmqType = Consensus::LLMQ_NONE;
         for (const auto& p : Params().GetConsensus().llmqs) {
@@ -1363,9 +1363,9 @@ bool AppInitParameterInteraction()
         if (llmqType == Consensus::LLMQ_NONE) {
             return InitError("Invalid LLMQ type specified for -llmqchainlocks.");
         }
-        UpdateDevnetLLMQChainLocks(llmqType);
+        UpdatePovnetLLMQChainLocks(llmqType);
     } else if (gArgs.IsArgSet("-llmqchainlocks")) {
-        return InitError("LLMQ type for ChainLocks can only be overridden on devnet.");
+        return InitError("LLMQ type for ChainLocks can only be overridden on povnet.");
     }
 
     return true;

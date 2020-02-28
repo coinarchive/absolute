@@ -53,15 +53,15 @@ This was recognized as a stalled sync process and thus the process was reset. To
 we limited sync process to 3 peers max now and the issue should no longer appear as long as there
 are at least 4 connections.
 
-Testnet/Devnet fixes
+Testnet/Povnet fixes
 --------------------
 
 Turned out that a low-diff rule for slow blocks backported from Bitcoin works a bit too aggressive for
 a blockchain which uses a dynamic per-block difficulty adjustment algorithm (DGW). While blocks are still
 produced at a more or less constant rate on average, the rate however is way too high.
 
-We also lifted multiple ports restriction on devnet and also incuded other fixes which should improve
-connectivity on devnets which are using nodes with multiple different ports.
+We also lifted multiple ports restriction on povnet and also incuded other fixes which should improve
+connectivity on povnets which are using nodes with multiple different ports.
 
 
 0.12.3.2 Change log
@@ -71,12 +71,12 @@ See detailed [change log](https://github.com/dashpay/dash/compare/v0.12.3.1...da
 
 ### Network:
 - [`2474d9cb8`](https://github.com/dashpay/dash/commit/2474d9cb8) Sync mn list and mnw list from 3 peers max (#2169)
-- [`2c303cdb1`](https://github.com/dashpay/dash/commit/2c303cdb1) A few devnet related fixes (#2168)
+- [`2c303cdb1`](https://github.com/dashpay/dash/commit/2c303cdb1) A few povnet related fixes (#2168)
 
 ### Mining:
-- [`2ba0c7760`](https://github.com/dashpay/dash/commit/2ba0c7760) Add tests for special rules for slow blocks on devnet/testnet (#2176)
+- [`2ba0c7760`](https://github.com/dashpay/dash/commit/2ba0c7760) Add tests for special rules for slow blocks on povnet/testnet (#2176)
 - [`b9a83d2ae`](https://github.com/dashpay/dash/commit/b9a83d2ae) Allow mining min diff for very slow (2h+) blocks (#2175)
-- [`050cabdf5`](https://github.com/dashpay/dash/commit/050cabdf5) Adjust diff for slow testnet/devnet blocks a bit smoother (#2161)
+- [`050cabdf5`](https://github.com/dashpay/dash/commit/050cabdf5) Adjust diff for slow testnet/povnet blocks a bit smoother (#2161)
 
 ### GUI:
 - [`7b9919d18`](https://github.com/dashpay/dash/commit/7b9919d18) Fix issues with selections on Masternode tab (#2170)
