@@ -166,9 +166,4 @@ void UpdateBudgetParameters(int nMasternodePaymentsStartBlock, int nBudgetPaymen
  */
 void UpdatePovnetSubsidyAndDiffParams(int nMinimumDifficultyBlocks, int nHighSubsidyBlocks, int nHighSubsidyFactor);
 
-/**
- * Allows modifying the LLMQ type for ChainLocks.
- */
-void UpdatePovnetLLMQChainLocks(Consensus::LLMQType llmqType);
-
 #endif // BITCOIN_CHAINPARAMS_H

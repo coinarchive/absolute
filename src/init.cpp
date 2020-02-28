@@ -1351,23 +1351,6 @@ bool AppInitParameterInteraction()
         return InitError("Difficulty and subsidy parameters may only be overridden on povnet.");
     }
 
-    if (chainparams.NetworkIDString() == CBaseChainParams::POVNET) {
-        std::string llmqChainLocks = gArgs.GetArg("-llmqchainlocks", Params().GetConsensus().llmqs.at(Params().GetConsensus().llmqChainLocks).name);
-        Consensus::LLMQType llmqType = Consensus::LLMQ_NONE;
-        for (const auto& p : Params().GetConsensus().llmqs) {
-            if (p.second.name == llmqChainLocks) {
-                llmqType = p.first;
-                break;
-            }
-        }
-        if (llmqType == Consensus::LLMQ_NONE) {
-            return InitError("Invalid LLMQ type specified for -llmqchainlocks.");
-        }
-        UpdatePovnetLLMQChainLocks(llmqType);
-    } else if (gArgs.IsArgSet("-llmqchainlocks")) {
-        return InitError("LLMQ type for ChainLocks can only be overridden on povnet.");
-    }
-
     return true;
 }
 

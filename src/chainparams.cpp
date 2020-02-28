@@ -767,7 +767,3 @@ void UpdatePovnetSubsidyAndDiffParams(int nMinimumDifficultyBlocks, int nHighSub
     PoVNetParams->UpdateSubsidyAndDiffParams(nMinimumDifficultyBlocks, nHighSubsidyBlocks, nHighSubsidyFactor);
 }
 
-void UpdatePovnetLLMQChainLocks(Consensus::LLMQType llmqType)
-{
-    regTestParams.UpdateBIP9Parameters(d, nStartTime, nTimeout);
-}
