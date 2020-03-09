@@ -3183,7 +3183,6 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, const 
     if (pindexPrev->nStatus & BLOCK_FAILED_MASK)
         return state.DoS(100, error("%s: prev block invalid", __func__), REJECT_INVALID, "bad-prevblk");
 
-    assert(pindexPrev);
     
     // Check proof of work matches claimed amount
     if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(pindexPrev->nHeight + 1), block.nBits, consensusParams))
