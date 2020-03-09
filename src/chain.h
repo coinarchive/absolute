@@ -277,6 +277,11 @@ public:
     {
         return *phashBlock;
     }
+    
+    uint256 GetBlockPoWHash() const 
+    {
+        return GetBlockHeader().GetPoWHash(nHeight);
+    }
 
     uint256 GetBlockPoWHash() const 
     {
