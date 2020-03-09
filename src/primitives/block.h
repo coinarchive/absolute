@@ -69,6 +69,12 @@ public:
     {
         return (int64_t)nTime;
     }
+
+    uint256 GetPoWHash(const int nHeight) const;
+    char* begin() const
+    {
+        return ((char*)&(nVersion));
+    }
 };
 
 
